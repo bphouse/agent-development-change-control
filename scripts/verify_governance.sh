@@ -8,6 +8,7 @@ fi
 
 TARGET="$1"
 REQ_FILES=(
+  "AGENT_STARTUP.md"
   ".ai-governance/project-brief.md"
   ".ai-governance/protected-core.md"
   ".ai-governance/contracts.md"

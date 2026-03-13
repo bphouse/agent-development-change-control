@@ -1,3 +1,5 @@
 interface:
   display_name: Agent Development Change Control
-  short_description: governance for agent-driven software development changes
+  short_description: For humans: govern agent software changes. For AI agents: follow startup order, change control, and release safety.
+policy:
+  allow_implicit_invocation: true

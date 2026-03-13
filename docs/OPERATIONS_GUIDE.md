@@ -8,16 +8,18 @@ The goal is to make governance automatic across projects so teams do not have to
 
 ## What this system installs
 
-Each project receives three persistent layers:
+Each project receives four persistent layers:
 
 1. Global agent rules via your agent platform configuration.
 2. Project governance files inside the repository.
-3. CI/CD enforcement to block unsafe changes.
+3. Repository-native task prompts for agents.
+4. CI/CD enforcement to block unsafe changes.
 
 ## Recommended project layout after bootstrap
 
 ```txt
 your-project/
+  AGENT_STARTUP.md
   .ai-governance/
     project-brief.md
     protected-core.md
@@ -37,6 +39,23 @@ your-project/
       release-gate.yml
 ```
 
+## Agent auto-operation model
+
+The repository must make the operating order explicit so the agent can self-load the right rules.
+
+### Required startup order
+
+1. Read `AGENT_STARTUP.md`.
+2. Read `.ai-governance/project-brief.md`.
+3. Read `.ai-governance/protected-core.md`.
+4. Read `.ai-governance/contracts.md`.
+5. If governance is incomplete, run the bootstrap prompt before product changes.
+6. Before code changes, output `[CHANGE PLAN]`.
+7. After changes, output `[REVIEW SUMMARY]`.
+8. Before merge or release, output `[RELEASE GATE RESULT]`.
+
+This means the agent does not need repeated human prompting. The repository itself becomes the operating system for the agent workflow.
+
 ## Deployment steps
 
 ### Step 1: Set global agent rules
@@ -51,7 +70,7 @@ Run:
 bash scripts/bootstrap_project.sh /path/to/project
 ```
 
-This copies governance templates, task prompts, and workflow templates into the target repository.
+This copies governance templates, task prompts, workflow templates, and `AGENT_STARTUP.md` into the target repository.
 
 ### Step 3: Verify installation
 
@@ -61,7 +80,7 @@ Run:
 bash scripts/verify_governance.sh /path/to/project
 ```
 
-The script checks that the expected governance files and workflow files exist.
+The script checks that the expected governance files, startup file, prompt files, and workflow files exist.
 
 ### Step 4: Seed project-specific governance
 
@@ -71,7 +90,7 @@ Run:
 bash scripts/seed_project_governance.sh /path/to/project
 ```
 
-This produces starter guidance and reminds the agent or reviewer to populate protected core, contracts, and release details.
+This produces starter guidance and tells the agent or reviewer how to populate protected core, contracts, and release details.
 
 ### Step 5: Enforce the workflow
 
@@ -108,6 +127,7 @@ Require agents to follow this sequence:
 ### Monthly
 - check which repositories are missing governance
 - review whether protected-core and contracts are stale
+- confirm `AGENT_STARTUP.md` still reflects the intended operating order
 
 ### Quarterly
 - update templates based on incidents and learnings

@@ -1,14 +1,36 @@
 # Agent Development Change Control
 
-A reusable governance framework for agent-driven software development.
+## For humans
 
-This repository provides:
-- global agent operating rules
-- project governance templates
-- OpenClaw task prompt templates
-- CI/CD gate templates
-- project bootstrap and verification scripts
-- a packaged ChatGPT skill for reuse
+**Agent Development Change Control** is a governance framework for **agent-driven software development**.
+
+Use this repository to:
+- bootstrap project governance into new repositories
+- protect architecture-critical behavior from accidental erosion
+- standardize pre-change planning, post-change review, and pre-release decision gates
+- give OpenClaw-style agents a repository-native startup order
+- connect governance rules to CI/CD checks and release safety
+
+This repository is intended for:
+- engineering managers
+- platform teams
+- DevOps
+- architects
+- project owners
+- teams adopting AI-agent-first development
+
+## For AI agents
+
+**Agent Development Change Control** defines your required operating model inside this repository and any repository bootstrapped from it.
+
+You must:
+1. read the governance entry files first
+2. read the project governance files before touching product code
+3. produce a structured `[CHANGE PLAN]` before changes
+4. avoid rewriting protected core behavior without explicit justification
+5. produce a structured `[REVIEW SUMMARY]` after changes
+6. produce a structured `[RELEASE GATE RESULT]` before merge or release
+7. treat governance as required operating infrastructure, not optional guidance
 
 ## Why this exists
 
@@ -21,14 +43,7 @@ AI agents can accelerate development, but they can also break stable code when c
 - protects architecture-critical behavior from accidental erosion
 - provides templates for contracts, protected core, release checklists, and rollback policy
 - connects governance to CI/CD gates
-
-## Who should use it
-
-- engineering managers
-- platform teams
-- DevOps
-- architects
-- teams adopting AI-agent-first development
+- gives agents a repository-native startup order so they can automatically load and follow the right rules
 
 ## Core idea
 
@@ -40,6 +55,7 @@ Treat governance as infrastructure.
 ```txt
 agent-development-change-control/
   README.md
+  AGENT_STARTUP.md
   docs/
   global/
   templates/
@@ -47,6 +63,23 @@ agent-development-change-control/
   skill/
   dist/
 ```
+
+## Agent startup order
+
+If an AI agent is operating in this repository, or in a repository bootstrapped from it, it should follow this order:
+
+1. Read `AGENT_STARTUP.md`
+2. Read `global/soul.md`
+3. Read `docs/OPERATIONS_GUIDE.md`
+4. In a target project, read:
+   - `.ai-governance/project-brief.md`
+   - `.ai-governance/protected-core.md`
+   - `.ai-governance/contracts.md`
+5. Before changes, use `.openclaw/task-prompts/change-plan.md`
+6. After changes, use `.openclaw/task-prompts/review.md`
+7. Before merge or release, use `.openclaw/task-prompts/release-gate.md`
+
+This ensures the agent can automatically understand and operate the governance model from the repository itself.
 
 ## Quick start
 
@@ -70,6 +103,7 @@ bash scripts/seed_project_governance.sh /path/to/your-project
 
 ## Included deliverables
 
+- `AGENT_STARTUP.md`: repository-native startup order for agents
 - `docs/OPERATIONS_GUIDE.md`: human-facing deployment and operations guide
 - `global/soul.md`: global agent rules for OpenClaw-style agents
 - `templates/.ai-governance/*`: project governance templates

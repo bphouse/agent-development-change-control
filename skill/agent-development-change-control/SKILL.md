@@ -1,11 +1,27 @@
 ---
 name: agent-development-change-control
-description: governance framework for agent-driven software development. use when chatgpt or an ai agent needs to plan a code change, control development scope, review a diff against protected behavior, prevent regressions, define project governance overlays, or decide whether a software change is safe to merge or release.
+description: governance framework for agent-driven software development. use when chatgpt or an ai agent needs to plan a code change, control development scope, bootstrap repository-native governance, review a diff against protected behavior, prevent regressions, or decide whether a software change is safe to merge or release.
 ---
 
 # Agent Development Change Control
 
-Use this skill as a governance layer for agent-driven software development. Treat it as a control plane for three phases: before a change, after a change, and before release.
+## For humans
+
+Use this skill when you want a repeatable governance layer for agent-driven software development.
+
+This skill helps human teams:
+- plan changes before code is modified
+- protect architecture-critical behavior
+- review diffs against explicit contracts
+- bootstrap repository-native governance files
+- decide whether a change is safe to merge or release
+
+## For AI agents
+
+Use this skill as a governance control plane for agent-driven software development.
+
+You must use it across three phases: before a change, after a change, and before release.
+Treat governance as required operating infrastructure, not optional guidance.
 
 ## Core responsibilities
 
@@ -13,7 +29,7 @@ Use this skill as a governance layer for agent-driven software development. Trea
 2. Protect architecture-critical behavior from accidental erosion.
 3. Review diffs against explicit contracts instead of vague intent.
 4. Decide whether a change is safe to merge or release.
-5. Help create project-specific governance overlays when needed.
+5. Help create project-specific governance overlays and repository-native startup order when needed.
 
 ## Workflow
 
@@ -61,7 +77,7 @@ Minimum contract categories:
 - compatibility contract
 - release gate expectations
 
-Use `references/governance-reference.md` for default governance rules and `references/project-onboarding.md` for project-specific overlays.
+Use `references/governance-reference.md` for default governance rules, `references/project-onboarding.md` for project-specific overlays, and `references/repository-autopilot.md` for repository-native startup and auto-operation guidance.
 
 ### Minimal-change bias
 Prefer the smallest patch that satisfies the request while preserving compatibility. Flag these as high risk:
@@ -90,6 +106,7 @@ If the user is defining governance for a specific project, help them derive:
 - golden dataset expectations
 - release checklist
 - rollback target and stable baseline rules
+- repository-native startup order for agents
 
 Use `references/project-onboarding.md` to structure this work.
 
